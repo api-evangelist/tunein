@@ -1,0 +1,100 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tunein": "https://tunein.com/vocab/",
+    "radiotime": "https://opml.radiotime.com/vocab/",
+    "air": "http://air.radiotime.com/vocab/"
+  },
+  "@type": "WebAPI",
+  "@id": "https://raw.githubusercontent.com/api-evangelist/tunein/refs/heads/main/apis.yml",
+  "name": "TuneIn API",
+  "description": "TuneIn is an internet radio and podcast platform providing REST and OPML-based APIs for accessing live radio stations, sports audio, news, podcasts, and searching audio content worldwide.",
+  "url": "https://tunein.com/",
+  "provider": {
+    "@type": "Organization",
+    "name": "TuneIn",
+    "url": "https://tunein.com/",
+    "sameAs": [
+      "https://developer.tunein.com/cfp_login",
+      "https://github.com/tunein"
+    ],
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://help.tunein.com/"
+      },
+      {
+        "@type": "ContactPoint",
+        "contactType": "broadcaster support",
+        "email": "tuneinonair@tunein.com",
+        "url": "https://tunein.com/broadcasters/api/"
+      },
+      {
+        "@type": "ContactPoint",
+        "contactType": "partner certification",
+        "email": "partner-cert@tunein.com",
+        "url": "https://developer.tunein.com/cfp_login"
+      }
+    ]
+  },
+  "offers": {
+    "@type": "Offer",
+    "name": "TuneIn API Access",
+    "description": "Public streaming API available without authentication; broadcaster API requires partner credentials; platform API requires partner agreement.",
+    "url": "https://developer.tunein.com/cfp_login"
+  },
+  "hasPart": [
+    {
+      "@type": "WebAPI",
+      "@id": "https://opml.radiotime.com",
+      "name": "TuneIn Streaming API (OPML/RadioTime)",
+      "description": "Public OPML/RadioTime API for browsing, searching, describing, and tuning to internet radio stations, podcasts, sports audio, and news.",
+      "url": "https://tunein-api.corehacked.com/",
+      "documentation": "https://tunein-api.corehacked.com/",
+      "termsOfService": "https://tunein.com/policies/",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://opml.radiotime.com"
+      },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "name": "Search Stations and Podcasts",
+          "target": "https://opml.radiotime.com/search.ashx?query={query}",
+          "query-input": "required name=query"
+        },
+        {
+          "@type": "ListenAction",
+          "name": "Tune to Station",
+          "target": "https://opml.radiotime.com/tune.ashx?id={station_id}"
+        }
+      ]
+    },
+    {
+      "@type": "WebAPI",
+      "@id": "http://air.radiotime.com",
+      "name": "TuneIn AIR (Broadcaster) API",
+      "description": "Partner API for licensed broadcasters to submit real-time now-playing metadata to TuneIn.",
+      "url": "https://tunein.com/broadcasters/api/",
+      "documentation": "https://tunein.com/broadcasters/api/",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "http://air.radiotime.com"
+      }
+    },
+    {
+      "@type": "WebAPI",
+      "@id": "https://developer.tunein.com",
+      "name": "TuneIn Platform API",
+      "description": "Partner-facing REST API (OAuth 2.0) for embedding TuneIn's full audio service into third-party devices and ecosystems.",
+      "url": "https://developer.tunein.com/cfp_login",
+      "documentation": "https://developer.tunein.com/cfp_login"
+    }
+  ],
+  "subjectOf": {
+    "@type": "CreativeWork",
+    "name": "TuneIn API Status",
+    "url": "https://status.tunein.com/"
+  }
+}

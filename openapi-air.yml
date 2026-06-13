@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: TuneIn AIR (Broadcaster) API
+  description: >
+    The TuneIn AIR (Audio Information Reporting) API enables licensed broadcast
+    partners to submit real-time now-playing metadata — including song title,
+    artist, album, and commercial break flags — directly to TuneIn. Stations
+    receive a partnerId and partnerKey upon contacting TuneIn to register.
+    Submit updates once per song start; avoid timer-based or duplicate
+    submissions or requests may be blocked. Updates may take up to 24 hours to
+    appear on tunein.com.
+  version: 1.0.0
+  contact:
+    name: TuneIn Broadcaster Support
+    url: https://tunein.com/broadcasters/api/
+    email: tuneinonair@tunein.com
+  x-docs: https://tunein.com/broadcasters/api/
+servers:
+  - url: http://air.radiotime.com
+    description: TuneIn AIR now-playing metadata endpoint
+
+paths:
+  /Playing.ashx:
+    get:
+      operationId: submitNowPlaying
+      summary: Submit now-playing metadata for a station
+      description: >
+        Submits real-time now-playing metadata (current song, artist, album,
+        commercial flag) for a licensed broadcast station to TuneIn. Partners
+        must include their partnerId and partnerKey credentials. Requests should
+        be sent once per song start — duplicate or timer-based submissions
+        within short timeframes may be blocked. Information may take up to 24
+        hours to appear on TuneIn.com.
+      parameters:
+        - name: partnerId
+          in: query
+          description: >
+            Unique partner identifier issued by TuneIn upon broadcaster
+            registration.
+          required: true
+          schema:
+            type: string
+            example: myPartnerId
+        - name: partnerKey
+          in: query
+          description: >
+            Partner authentication key issued by TuneIn alongside the partnerId.
+          required: true
+          schema:
+            type: string
+            example: myPartnerKey
+        - name: id
+          in: query
+          description: >
+            Station identifier assigned by TuneIn. Must be prefixed with "s"
+            (e.g. s12345).
+          required: true
+          schema:
+            type: string
+            pattern: '^s\d+'
+            example: s12345
+        - name: title
+          in: query
+          description: Title of the currently playing song.
+          required: true
+          schema:
+            type: string
+            example: Bad Romance
+        - name: artist
+          in: query
+          description: Name of the artist performing the currently playing song.
+          required: true
+          schema:
+            type: string
+            example: Lady Gaga
+        - name: album
+          in: query
+          description: Album name for the currently playing song.
+          required: false
+          schema:
+            type: string
+            example: The Fame Monster
+        - name: commercial
+          in: query
+          description: >
+            Set to true during non-song periods (e.g. advertisements, station
+            IDs). When true, title and artist are not required.
+          required: false
+          schema:
+            type: boolean
+            example: false
+      responses:
+        '200':
+          description: >
+            Now-playing metadata successfully received. Information may take up
+            to 24 hours to display on TuneIn.com.
+          content:
+            text/plain:
+              example: ok
+        '400':
+          description: >
+            Invalid request — missing or malformed required parameters.
+        '403':
+          description: >
+            Authentication failure — invalid partnerId or partnerKey, or the
+            station ID is not associated with the partner account.
+        '429':
+          description: >
+            Request blocked due to duplicate or timer-based submission. Send
+            updates only once per song start.

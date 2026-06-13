@@ -53,6 +53,8 @@ apis:
         url: https://tunein.com/broadcasters/api/
       - type: Documentation
         url: https://cms.tunein.com/broadcasters/api/instructions/
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/tunein/refs/heads/main/openapi-air.yml
     contact:
       - FN: TuneIn Broadcaster Support
         url: https://tunein.com/broadcasters/api/

@@ -1,0 +1,537 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime)
+  description: >
+    The TuneIn Streaming API (backed by opml.radiotime.com) provides access to
+    TuneIn's directory of internet radio stations, podcasts, sports audio, news,
+    and music. Callers can browse categories, search for stations, describe
+    specific stations or shows, and retrieve stream URLs for playback. Responses
+    are available in OPML (XML) or JSON format. No authentication is required
+    for the public streaming API.
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+  - url: https://opml.radiotime.com
+    description: TuneIn OPML / RadioTime public endpoint
+
+paths:
+  /browse.ashx:
+    get:
+      operationId: browseDirectory
+      summary: Browse the TuneIn directory
+      description: >
+        Browse TuneIn's directory of radio stations, podcasts, sports, news,
+        and music by category. Returns an OPML (XML) or JSON listing of
+        categories or stations depending on the parameters supplied.
+      parameters:
+        - name: c
+          in: query
+          description: >
+            Browse category. Valid values: local, music, talk, sports, lang,
+            podcast. The "local" category returns streaming results directly;
+            the others return further menu options.
+          required: false
+          schema:
+            type: string
+            enum:
+              - local
+              - music
+              - talk
+              - sports
+              - lang
+              - podcast
+        - name: id
+          in: query
+          description: >
+            Identifier of a country or continent for location-scoped browsing
+            (e.g. r0, r101217). Used with categories that support geographic
+            filtering.
+          required: false
+          schema:
+            type: string
+            example: r101217
+        - name: filter
+          in: query
+          description: >
+            Language category filter. Format is "letter:text", e.g.
+            "s:popular" or "p:show". Used by the lang category to narrow
+            results.
+          required: false
+          schema:
+            type: string
+            example: s:popular
+        - name: render
+          in: query
+          description: >
+            Response format override. Set to "json" to receive JSON instead of
+            the default XML/OPML response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+      responses:
+        '200':
+          description: >
+            OPML (XML) or JSON listing of categories or stations. When no
+            category is specified the root directory is returned. Station
+            outlines include type, text, URL, bitrate, reliability, guide_id,
+            subtext, genre_id, formats, show_id, image, current_track,
+            now_playing_id, and preset_id attributes.
+          content:
+            application/xml:
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <opml version="1">
+                  <head>
+                    <title>Browse</title>
+                    <status>200</status>
+                  </head>
+                  <body>
+                    <outline type="link" text="Local Radio" URL="https://opml.radiotime.com/browse.ashx?c=local" key="local"/>
+                    <outline type="link" text="Music" URL="https://opml.radiotime.com/browse.ashx?c=music" key="music"/>
+                    <outline type="link" text="Talk" URL="https://opml.radiotime.com/browse.ashx?c=talk" key="talk"/>
+                    <outline type="link" text="Sports" URL="https://opml.radiotime.com/browse.ashx?c=sports" key="sports"/>
+                    <outline type="link" text="By Language" URL="https://opml.radiotime.com/browse.ashx?c=lang" key="lang"/>
+                    <outline type="link" text="Podcasts" URL="https://opml.radiotime.com/browse.ashx?c=podcast" key="podcast"/>
+                  </body>
+                </opml>
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseResponse'
+
+  /search.ashx:
+    get:
+      operationId: searchDirectory
+      summary: Search for stations, shows, and podcasts
+      description: >
+        Search the TuneIn directory for radio stations, shows, topics, and
+        podcasts. Returns an OPML (XML) or JSON list of matching results. The
+        query parameter must be URL-encoded. Returns a "No results" outline
+        element when no matches are found.
+      parameters:
+        - name: query
+          in: query
+          description: >
+            Search term. Must be URL-encoded (e.g. "GitFM" becomes "GitFM",
+            multi-word queries should encode spaces as "+").
+          required: true
+          schema:
+            type: string
+            example: BBC Radio 4
+        - name: render
+          in: query
+          description: >
+            Response format override. Set to "json" to receive JSON instead of
+            the default XML/OPML response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+      responses:
+        '200':
+          description: >
+            OPML (XML) or JSON list of matching stations/shows. Each result
+            outline may include: type, text, URL, guide_id, image, bitrate,
+            reliability, genre_id, formats, playing, item attributes.
+            When no results are found, returns an outline of type "text" with
+            a "No results for [query]" message.
+          content:
+            application/xml:
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <opml version="1">
+                  <head>
+                    <title>Search</title>
+                    <status>200</status>
+                  </head>
+                  <body>
+                    <outline type="audio" text="BBC Radio 4" URL="https://opml.radiotime.com/tune.ashx?id=s15200"
+                      guide_id="s15200" image="http://cdn-radiotime-logos.tunein.com/s15200q.png"
+                      bitrate="128" reliability="99" genre_id="g2754" formats="mp3"
+                      playing="In Our Time" item="station"/>
+                  </body>
+                </opml>
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+
+  /describe.ashx:
+    get:
+      operationId: describeStation
+      summary: Get detailed metadata for a station or show
+      description: >
+        Returns detailed metadata about a specific TuneIn station, show, topic,
+        or podcast identified by its guide_id. The response includes over 60
+        fields covering broadcast details, geographic data, content
+        classifications, monetization flags, and social sharing capabilities.
+      parameters:
+        - name: id
+          in: query
+          description: >
+            Station or show identifier as returned in guide_id or preset_id
+            outline attributes (e.g. s42069).
+          required: true
+          schema:
+            type: string
+            example: s42069
+        - name: render
+          in: query
+          description: >
+            Response format override. Set to "json" to receive JSON instead of
+            the default XML/OPML response.
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+      responses:
+        '200':
+          description: >
+            Detailed station or show metadata wrapped in an OPML structure.
+          content:
+            application/xml:
+              example: |
+                <?xml version="1.0" encoding="UTF-8"?>
+                <opml version="1">
+                  <head>
+                    <title>Describe</title>
+                    <status>200</status>
+                  </head>
+                  <body>
+                    <outline guide_id="s42069" preset_id="s42069"
+                      name="Example Radio" call_sign="WXYZ" slogan="The Best Music"
+                      frequency="96.2" band="FM"
+                      url="https://opml.radiotime.com/tune.ashx?id=s42069"
+                      detail_url="https://tunein.com/radio/WXYZ-s42069/"
+                      tunein_url="https://tunein.com/radio/WXYZ-s42069/"
+                      logo="http://cdn-radiotime-logos.tunein.com/s42069q.png"
+                      location="New York, NY" description="Top 40 radio station"
+                      genre_id="g57" genre_name="Top 40/Pop"
+                      language="English" country_region_id="r100085"
+                      is_available="true" is_music="true"
+                      has_song="true" has_schedule="false"
+                      ad_eligible="true" preroll_ad_eligible="true"
+                      can_cast="true" nielsen_eligible="true"/>
+                  </body>
+                </opml>
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeResponse'
+
+  /tune.ashx:
+    get:
+      operationId: tuneStation
+      summary: Get the streaming playlist file for a station or show
+      description: >
+        Returns a .m3u playlist file that can be used to stream the specified
+        station or show. The id parameter is obtained from the outline URL or
+        guide_id attributes returned by browse, search, or describe. The
+        response is a direct file download.
+      parameters:
+        - name: id
+          in: query
+          description: >
+            Tune identifier obtained from outline objects (e.g. s12345 for a
+            station). Use the id value embedded in the outline URL attribute
+            from browse or search results.
+          required: true
+          schema:
+            type: string
+            example: s12345
+        - name: sid
+          in: query
+          description: >
+            Show or topic identifier (e.g. p1234567). Used alongside the id
+            parameter for shows and topics. Purpose partially undocumented.
+          required: false
+          schema:
+            type: string
+            example: p1234567
+      responses:
+        '200':
+          description: >
+            An M3U playlist file containing the streaming URL(s) for the
+            requested station or show. Use a media player or streaming library
+            to parse and play the returned stream URLs.
+          content:
+            audio/x-mpegurl:
+              example: |
+                #EXTM3U
+                http://stream.example.com/live
+
+components:
+  schemas:
+    BrowseOutline:
+      type: object
+      description: A single item in an OPML browse response (JSON rendering)
+      properties:
+        type:
+          type: string
+          description: Outline type (e.g. "link", "audio", "text")
+        text:
+          type: string
+          description: Display name of the category or station
+        URL:
+          type: string
+          format: uri
+          description: URL to browse further or tune to the station
+        key:
+          type: string
+          description: Category identifier key
+        guide_id:
+          type: string
+          description: Unique TuneIn station or show identifier
+        preset_id:
+          type: string
+          description: Preset identifier
+        bitrate:
+          type: integer
+          description: Stream bitrate in kbps
+        reliability:
+          type: integer
+          description: Stream reliability percentage (0-100)
+        genre_id:
+          type: string
+          description: Genre classification code
+        formats:
+          type: string
+          description: Audio format (e.g. "mp3", "aac")
+        show_id:
+          type: string
+          description: Show identifier
+        image:
+          type: string
+          format: uri
+          description: Station or show image URL
+        current_track:
+          type: string
+          description: Currently playing track title
+        now_playing_id:
+          type: string
+          description: Now-playing metadata identifier
+        subtext:
+          type: string
+          description: Secondary display text
+
+    BrowseResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Browse
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/BrowseOutline'
+
+    SearchOutline:
+      type: object
+      description: A single search result item (JSON rendering)
+      properties:
+        type:
+          type: string
+          description: Outline type (e.g. "audio", "link", "text")
+        text:
+          type: string
+          description: Display name of the station or show
+        URL:
+          type: string
+          format: uri
+          description: Tune URL for the station or show
+        guide_id:
+          type: string
+          description: Unique TuneIn identifier
+        image:
+          type: string
+          format: uri
+          description: Station or show image URL
+        bitrate:
+          type: integer
+          description: Stream bitrate in kbps
+        reliability:
+          type: integer
+          description: Stream reliability percentage (0-100)
+        genre_id:
+          type: string
+          description: Genre classification code
+        formats:
+          type: string
+          description: Audio format (e.g. "mp3")
+        playing:
+          type: string
+          description: Currently playing content
+        item:
+          type: string
+          description: Item classification (e.g. "station", "show")
+
+    SearchResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Search
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchOutline'
+
+    StationDetails:
+      type: object
+      description: Detailed station or show metadata (JSON rendering of describe response)
+      properties:
+        guide_id:
+          type: string
+          description: Unique TuneIn station identifier
+        preset_id:
+          type: string
+          description: Preset identifier
+        name:
+          type: string
+          description: Station name
+        call_sign:
+          type: string
+          description: Broadcast call sign (e.g. "WXYZ")
+        slogan:
+          type: string
+          description: Station slogan or tagline
+        frequency:
+          type: string
+          description: Broadcast frequency (e.g. "96.2")
+        band:
+          type: string
+          description: Broadcast band (e.g. "FM", "AM")
+        url:
+          type: string
+          format: uri
+          description: Tune URL for the station
+        detail_url:
+          type: string
+          format: uri
+          description: TuneIn web page URL for the station
+        tunein_url:
+          type: string
+          format: uri
+          description: TuneIn canonical URL
+        logo:
+          type: string
+          format: uri
+          description: Station logo image URL
+        location:
+          type: string
+          description: City and state/country location
+        description:
+          type: string
+          description: Station description
+        genre_id:
+          type: string
+          description: Genre classification code
+        genre_name:
+          type: string
+          description: Human-readable genre name
+        language:
+          type: string
+          description: Primary broadcast language
+        country_region_id:
+          type: string
+          description: Country or region identifier
+        tz:
+          type: string
+          description: Timezone name
+        tz_offset:
+          type: integer
+          description: Timezone offset in minutes from UTC
+        is_available:
+          type: boolean
+          description: Whether the station is currently available
+        is_music:
+          type: boolean
+          description: Whether the station primarily plays music
+        has_song:
+          type: boolean
+          description: Whether song metadata is available
+        has_schedule:
+          type: boolean
+          description: Whether a program schedule is available
+        ad_eligible:
+          type: boolean
+          description: Whether the station is eligible for advertising
+        preroll_ad_eligible:
+          type: boolean
+          description: Whether preroll ads can be served
+        companion_ad_eligible:
+          type: boolean
+          description: Whether companion ads can be served
+        video_preroll_ad_eligible:
+          type: boolean
+          description: Whether video preroll ads can be served
+        fb_share:
+          type: boolean
+          description: Whether Facebook sharing is enabled
+        twitter_share:
+          type: boolean
+          description: Whether Twitter/X sharing is enabled
+        song_share:
+          type: boolean
+          description: Whether song-level sharing is enabled
+        content_classification:
+          type: string
+          description: Content classification label
+        is_family_content:
+          type: boolean
+          description: Whether the content is family-friendly
+        is_mature_content:
+          type: boolean
+          description: Whether the content is mature/adult
+        can_cast:
+          type: boolean
+          description: Whether the station supports Chromecast
+        nielsen_eligible:
+          type: boolean
+          description: Whether the station is eligible for Nielsen tracking
+        live_seek_stream:
+          type: boolean
+          description: Whether live seek/time-shift is supported
+        seek_disabled:
+          type: boolean
+          description: Whether seeking is disabled
+
+    DescribeResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Describe
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              $ref: '#/components/schemas/StationDetails'
