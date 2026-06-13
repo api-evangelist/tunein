@@ -1,0 +1,77 @@
+plans:
+  - name: Public OPML API (No Key)
+    description: Free access to the TuneIn OPML/RadioTime streaming API without a partner ID. Allows browsing categories and searching stations but is subject to aggressive rate limiting (403 Forbidden after a daily threshold). No registration required.
+    url: https://tunein-api.corehacked.com/api-basics/getting-started
+    type: free
+    features:
+      - Browse radio categories (local, music, talk, sports, podcasts)
+      - Search stations and shows
+      - Retrieve station descriptions
+      - Tune (stream URL) access
+      - OPML (XML) and JSON response formats
+    rateLimit:
+      requests: limited
+      period: day
+      notes: Rate limit is low without a partnerId. Exceeding it results in 403 Forbidden for the remainder of the day.
+
+  - name: Public OPML API (With Partner ID)
+    description: Free access to the TuneIn OPML/RadioTime streaming API using a TuneIn-issued partnerId. Provides a higher daily request quota than unauthenticated access. Partner ID obtained by contacting TuneIn directly.
+    url: https://tunein-api.corehacked.com/api-basics/getting-started
+    type: partner
+    features:
+      - All Public OPML API features
+      - Higher daily request quota
+      - Reduced risk of 403 rate-limit errors
+    authentication:
+      type: Query Parameter
+      parameter: partnerId
+    rateLimit:
+      requests: higher (undisclosed)
+      period: day
+      notes: Exact numeric limit not publicly documented; significantly higher than unauthenticated tier.
+
+  - name: AIR Broadcaster API
+    description: Free broadcaster integration tier allowing licensed radio stations to submit real-time now-playing metadata to TuneIn. Requires a partnerId and partnerKey obtained by emailing tuneinonair@tunein.com with the station's TuneIn URL.
+    url: https://tunein.com/broadcasters/api/
+    type: broadcaster
+    features:
+      - Submit now-playing song title and artist
+      - Submit album metadata
+      - Flag commercial breaks
+      - Real-time playlist synchronization
+      - Playlist history browsing for listeners
+    authentication:
+      type: Query Parameters
+      parameters:
+        - partnerId
+        - partnerKey
+        - id (stationId)
+    contact: tuneinonair@tunein.com
+
+  - name: Platform API (Partner / OEM)
+    description: Full-featured partner API for embedding TuneIn into smart devices, vehicles, and consumer electronics. Requires a signed evaluation agreement and successful certification. Provides OAuth 2.0 authentication and access to categories, profiles, media, recommendations, and reporting endpoints.
+    url: https://developer.tunein.com/cfp_login
+    type: partner-oem
+    features:
+      - Category browsing
+      - User profile management
+      - Content library access
+      - Media streaming endpoints
+      - Now-playing data
+      - Favorites management
+      - Full-text profile search
+      - Recommendations engine
+      - Usage reporting
+    authentication:
+      type: OAuth 2.0
+      notes: Non-mobile device alternative authentication also supported
+    contact: partner-cert@tunein.com
+    certification:
+      steps:
+        - API access provision
+        - Device/emulator submission
+        - Preliminary testing by TuneIn
+        - Issue resolution
+        - Finalized software delivery
+        - Approval notification
+        - Customer release

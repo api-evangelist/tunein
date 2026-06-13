@@ -1,0 +1,46 @@
+rateLimits:
+  - api: TuneIn Streaming API (OPML) — Unauthenticated
+    description: Requests to opml.radiotime.com without a partnerId parameter are subject to a low daily call threshold enforced by TuneIn. Once the limit is exceeded, the service returns HTTP 403 Forbidden for the remainder of that day. The exact numeric ceiling is not publicly disclosed.
+    tier: free-no-key
+    limit: undisclosed (low)
+    period: day
+    errorCode: 403 Forbidden
+    resetWindow: 24 hours
+    notes: >
+      TuneIn significantly limits the number of calls without a partnerId.
+      Developers are advised to add a partnerId query parameter to all requests
+      to access the higher-quota tier.
+
+  - api: TuneIn Streaming API (OPML) — With Partner ID
+    description: Requests that include a valid partnerId parameter are subject to a higher (but still undisclosed) daily call threshold. This tier is intended for integrators and application developers who have registered with TuneIn.
+    tier: partner-key
+    limit: undisclosed (higher)
+    period: day
+    errorCode: 403 Forbidden
+    resetWindow: 24 hours
+    notes: >
+      Exact numeric limits are not published. Contact TuneIn to obtain a
+      partnerId for higher quota access.
+
+  - api: TuneIn AIR (Broadcaster) API
+    description: The AIR API is designed for one submission per song change event. Submitting multiple requests in rapid succession risks account suspension or blocking by TuneIn.
+    tier: broadcaster
+    limit: 1 request per song change
+    period: per track
+    errorCode: N/A (blocking enforced administratively)
+    resetWindow: N/A
+    notes: >
+      TuneIn instructs broadcasters to submit only once when a new song starts.
+      Multiple rapid submissions may result in the partner credentials being
+      blocked. Metadata propagation to TuneIn.com may take up to 24 hours.
+
+  - api: TuneIn Platform API (Partner/OEM)
+    description: Rate limits for the Platform API are governed by the partner agreement and are not publicly disclosed. Partners should consult their agreement and contact partner-cert@tunein.com for specific thresholds.
+    tier: platform-partner
+    limit: per agreement (not publicly disclosed)
+    period: N/A
+    errorCode: N/A
+    resetWindow: N/A
+    notes: >
+      Access to the Platform API requires a signed evaluation agreement.
+      Rate limits are determined on a per-partner basis.

@@ -1,0 +1,58 @@
+finops:
+  summary: >
+    TuneIn does not publish public pricing for its API tiers. The OPML/RadioTime
+    streaming API is freely accessible without a key (subject to strict rate limits)
+    or with a partner ID obtained at no stated cost. The AIR Broadcaster API is
+    free for licensed radio stations. The Platform API (for OEM/smart-device
+    partners) requires a signed evaluation agreement; commercial terms are
+    negotiated privately.
+
+  tiers:
+    - name: OPML Streaming API — No Key
+      cost: free
+      billingModel: none
+      notes: >
+        No registration or payment required. Subject to an undisclosed low daily
+        request limit. Exceeding the limit results in 403 errors until the next day.
+
+    - name: OPML Streaming API — Partner ID
+      cost: free (at TuneIn discretion)
+      billingModel: none
+      notes: >
+        Obtain a partnerId by contacting TuneIn. No public pricing associated
+        with the partner ID tier. Higher rate-limit quota compared to the
+        unauthenticated tier.
+
+    - name: AIR Broadcaster API
+      cost: free for licensed broadcasters
+      billingModel: none
+      notes: >
+        Free for verified broadcast stations. Credentials (partnerId, partnerKey)
+        obtained by emailing tuneinonair@tunein.com with station details.
+
+    - name: Platform API (OEM / Smart Device Partners)
+      cost: negotiated (not publicly disclosed)
+      billingModel: per agreement
+      notes: >
+        Commercial terms are set per partner contract. Requires a signed
+        Evaluation Agreement before API access is granted, followed by a
+        Definitive Agreement for production deployment. Contact
+        partner-cert@tunein.com.
+
+  costOptimizationTips:
+    - Cache OPML/JSON responses locally to reduce repeat calls and avoid hitting
+      daily rate limits on the unauthenticated tier.
+    - Always include a partnerId parameter in OPML API requests to benefit from
+      the higher quota tier.
+    - For the AIR Broadcaster API, submit metadata only once per song change event
+      to avoid excessive call volume and potential credential blocking.
+    - Monitor HTTP 403 responses as a signal of approaching or exceeding the
+      daily rate limit and implement exponential back-off logic.
+
+  references:
+    - url: https://tunein.com/broadcasters/api/
+      description: TuneIn Broadcaster API page
+    - url: https://developer.tunein.com/cfp_login
+      description: TuneIn Platform API developer portal
+    - url: https://tunein-api.corehacked.com/api-basics/getting-started
+      description: Unofficial OPML streaming API getting started guide
