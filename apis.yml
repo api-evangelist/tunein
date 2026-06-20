@@ -1,6 +1,6 @@
 name: TuneIn
 description: TuneIn is an internet radio and podcast platform providing REST and OPML-based APIs for accessing live radio stations, sports audio, news, podcasts, and searching audio content worldwide. The platform offers two primary API surfaces — the public OPML/RadioTime streaming API for browsing and tuning stations, and the AIR (Broadcaster) API for submitting real-time now-playing metadata.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/tunein/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -16,7 +16,7 @@ tags:
 apis:
   - name: TuneIn Streaming API (OPML/RadioTime)
     description: The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://tunein-api.corehacked.com/
     baseURL: https://opml.radiotime.com
     tags:
@@ -40,7 +40,7 @@ apis:
 
   - name: TuneIn AIR (Broadcaster) API
     description: The TuneIn AIR (Audio Information Reporting) API enables licensed broadcast partners to submit real-time now-playing metadata — including song title, artist, album, and commercial break flags — directly to TuneIn. Stations receive a partnerId and partnerKey upon contacting TuneIn to register their station.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://tunein.com/broadcasters/api/
     baseURL: http://air.radiotime.com
     tags:
@@ -64,7 +64,7 @@ apis:
 
   - name: TuneIn Platform API
     description: The TuneIn Platform API is a partner-facing REST API (OAuth 2.0) for embedding TuneIn's full audio service into third-party devices and ecosystems. It exposes endpoints for categories, user profiles, content libraries, media access, now-playing, favorites, search, recommendations, and reporting. Access requires a partner evaluation agreement and certification process.
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.tunein.com/cfp_login
     baseURL: https://developer.tunein.com
     tags:
