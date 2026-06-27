@@ -88,13 +88,13 @@ apis:
 common:
   - type: Website
     url: https://tunein.com/
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.tunein.com/cfp_login
   - type: Broadcaster API
     url: https://tunein.com/broadcasters/api/
   - type: Status
     url: https://status.tunein.com/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/tunein
   - type: Plans
     url: https://raw.githubusercontent.com/api-evangelist/tunein/refs/heads/main/plans/plans.yml
