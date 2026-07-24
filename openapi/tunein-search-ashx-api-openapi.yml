@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime) Search.ashx API
+  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
+
+    '
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+- url: https://opml.radiotime.com
+  description: TuneIn OPML / RadioTime public endpoint
+tags:
+- name: Search.ashx
+paths:
+  /search.ashx:
+    get:
+      operationId: searchDirectory
+      summary: Search for stations, shows, and podcasts
+      description: 'Search the TuneIn directory for radio stations, shows, topics, and podcasts. Returns an OPML (XML) or JSON list of matching results. The query parameter must be URL-encoded. Returns a "No results" outline element when no matches are found.
+
+        '
+      parameters:
+      - name: query
+        in: query
+        description: 'Search term. Must be URL-encoded (e.g. "GitFM" becomes "GitFM", multi-word queries should encode spaces as "+").
+
+          '
+        required: true
+        schema:
+          type: string
+          example: BBC Radio 4
+      - name: render
+        in: query
+        description: 'Response format override. Set to "json" to receive JSON instead of the default XML/OPML response.
+
+          '
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+      responses:
+        '200':
+          description: 'OPML (XML) or JSON list of matching stations/shows. Each result outline may include: type, text, URL, guide_id, image, bitrate, reliability, genre_id, formats, playing, item attributes. When no results are found, returns an outline of type "text" with a "No results for [query]" message.
+
+            '
+          content:
+            application/xml:
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<opml version=\"1\">\n  <head>\n    <title>Search</title>\n    <status>200</status>\n  </head>\n  <body>\n    <outline type=\"audio\" text=\"BBC Radio 4\" URL=\"https://opml.radiotime.com/tune.ashx?id=s15200\"\n      guide_id=\"s15200\" image=\"http://cdn-radiotime-logos.tunein.com/s15200q.png\"\n      bitrate=\"128\" reliability=\"99\" genre_id=\"g2754\" formats=\"mp3\"\n      playing=\"In Our Time\" item=\"station\"/>\n  </body>\n</opml>\n"
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+      tags:
+      - Search.ashx
+components:
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Search
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchOutline'
+    SearchOutline:
+      type: object
+      description: A single search result item (JSON rendering)
+      properties:
+        type:
+          type: string
+          description: Outline type (e.g. "audio", "link", "text")
+        text:
+          type: string
+          description: Display name of the station or show
+        URL:
+          type: string
+          format: uri
+          description: Tune URL for the station or show
+        guide_id:
+          type: string
+          description: Unique TuneIn identifier
+        image:
+          type: string
+          format: uri
+          description: Station or show image URL
+        bitrate:
+          type: integer
+          description: Stream bitrate in kbps
+        reliability:
+          type: integer
+          description: Stream reliability percentage (0-100)
+        genre_id:
+          type: string
+          description: Genre classification code
+        formats:
+          type: string
+          description: Audio format (e.g. "mp3")
+        playing:
+          type: string
+          description: Currently playing content
+        item:
+          type: string
+          description: Item classification (e.g. "station", "show")

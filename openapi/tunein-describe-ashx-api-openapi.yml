@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime) Describe.ashx API
+  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
+
+    '
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+- url: https://opml.radiotime.com
+  description: TuneIn OPML / RadioTime public endpoint
+tags:
+- name: Describe.ashx
+paths:
+  /describe.ashx:
+    get:
+      operationId: describeStation
+      summary: Get detailed metadata for a station or show
+      description: 'Returns detailed metadata about a specific TuneIn station, show, topic, or podcast identified by its guide_id. The response includes over 60 fields covering broadcast details, geographic data, content classifications, monetization flags, and social sharing capabilities.
+
+        '
+      parameters:
+      - name: id
+        in: query
+        description: 'Station or show identifier as returned in guide_id or preset_id outline attributes (e.g. s42069).
+
+          '
+        required: true
+        schema:
+          type: string
+          example: s42069
+      - name: render
+        in: query
+        description: 'Response format override. Set to "json" to receive JSON instead of the default XML/OPML response.
+
+          '
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+      responses:
+        '200':
+          description: 'Detailed station or show metadata wrapped in an OPML structure.
+
+            '
+          content:
+            application/xml:
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<opml version=\"1\">\n  <head>\n    <title>Describe</title>\n    <status>200</status>\n  </head>\n  <body>\n    <outline guide_id=\"s42069\" preset_id=\"s42069\"\n      name=\"Example Radio\" call_sign=\"WXYZ\" slogan=\"The Best Music\"\n      frequency=\"96.2\" band=\"FM\"\n      url=\"https://opml.radiotime.com/tune.ashx?id=s42069\"\n      detail_url=\"https://tunein.com/radio/WXYZ-s42069/\"\n      tunein_url=\"https://tunein.com/radio/WXYZ-s42069/\"\n      logo=\"http://cdn-radiotime-logos.tunein.com/s42069q.png\"\n      location=\"New York, NY\" description=\"Top 40 radio station\"\n      genre_id=\"g57\" genre_name=\"Top 40/Pop\"\n      language=\"English\" country_region_id=\"r100085\"\n      is_available=\"true\" is_music=\"true\"\n      has_song=\"true\" has_schedule=\"false\"\n      ad_eligible=\"true\" preroll_ad_eligible=\"true\"\n      can_cast=\"true\" nielsen_eligible=\"true\"/>\n  </body>\n</opml>\n"
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescribeResponse'
+      tags:
+      - Describe.ashx
+components:
+  schemas:
+    DescribeResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Describe
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              $ref: '#/components/schemas/StationDetails'
+    StationDetails:
+      type: object
+      description: Detailed station or show metadata (JSON rendering of describe response)
+      properties:
+        guide_id:
+          type: string
+          description: Unique TuneIn station identifier
+        preset_id:
+          type: string
+          description: Preset identifier
+        name:
+          type: string
+          description: Station name
+        call_sign:
+          type: string
+          description: Broadcast call sign (e.g. "WXYZ")
+        slogan:
+          type: string
+          description: Station slogan or tagline
+        frequency:
+          type: string
+          description: Broadcast frequency (e.g. "96.2")
+        band:
+          type: string
+          description: Broadcast band (e.g. "FM", "AM")
+        url:
+          type: string
+          format: uri
+          description: Tune URL for the station
+        detail_url:
+          type: string
+          format: uri
+          description: TuneIn web page URL for the station
+        tunein_url:
+          type: string
+          format: uri
+          description: TuneIn canonical URL
+        logo:
+          type: string
+          format: uri
+          description: Station logo image URL
+        location:
+          type: string
+          description: City and state/country location
+        description:
+          type: string
+          description: Station description
+        genre_id:
+          type: string
+          description: Genre classification code
+        genre_name:
+          type: string
+          description: Human-readable genre name
+        language:
+          type: string
+          description: Primary broadcast language
+        country_region_id:
+          type: string
+          description: Country or region identifier
+        tz:
+          type: string
+          description: Timezone name
+        tz_offset:
+          type: integer
+          description: Timezone offset in minutes from UTC
+        is_available:
+          type: boolean
+          description: Whether the station is currently available
+        is_music:
+          type: boolean
+          description: Whether the station primarily plays music
+        has_song:
+          type: boolean
+          description: Whether song metadata is available
+        has_schedule:
+          type: boolean
+          description: Whether a program schedule is available
+        ad_eligible:
+          type: boolean
+          description: Whether the station is eligible for advertising
+        preroll_ad_eligible:
+          type: boolean
+          description: Whether preroll ads can be served
+        companion_ad_eligible:
+          type: boolean
+          description: Whether companion ads can be served
+        video_preroll_ad_eligible:
+          type: boolean
+          description: Whether video preroll ads can be served
+        fb_share:
+          type: boolean
+          description: Whether Facebook sharing is enabled
+        twitter_share:
+          type: boolean
+          description: Whether Twitter/X sharing is enabled
+        song_share:
+          type: boolean
+          description: Whether song-level sharing is enabled
+        content_classification:
+          type: string
+          description: Content classification label
+        is_family_content:
+          type: boolean
+          description: Whether the content is family-friendly
+        is_mature_content:
+          type: boolean
+          description: Whether the content is mature/adult
+        can_cast:
+          type: boolean
+          description: Whether the station supports Chromecast
+        nielsen_eligible:
+          type: boolean
+          description: Whether the station is eligible for Nielsen tracking
+        live_seek_stream:
+          type: boolean
+          description: Whether live seek/time-shift is supported
+        seek_disabled:
+          type: boolean
+          description: Whether seeking is disabled

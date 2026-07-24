@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime) Tune.ashx API
+  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
+
+    '
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+- url: https://opml.radiotime.com
+  description: TuneIn OPML / RadioTime public endpoint
+tags:
+- name: Tune.ashx
+paths:
+  /tune.ashx:
+    get:
+      operationId: tuneStation
+      summary: Get the streaming playlist file for a station or show
+      description: 'Returns a .m3u playlist file that can be used to stream the specified station or show. The id parameter is obtained from the outline URL or guide_id attributes returned by browse, search, or describe. The response is a direct file download.
+
+        '
+      parameters:
+      - name: id
+        in: query
+        description: 'Tune identifier obtained from outline objects (e.g. s12345 for a station). Use the id value embedded in the outline URL attribute from browse or search results.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: s12345
+      - name: sid
+        in: query
+        description: 'Show or topic identifier (e.g. p1234567). Used alongside the id parameter for shows and topics. Purpose partially undocumented.
+
+          '
+        required: false
+        schema:
+          type: string
+          example: p1234567
+      responses:
+        '200':
+          description: 'An M3U playlist file containing the streaming URL(s) for the requested station or show. Use a media player or streaming library to parse and play the returned stream URLs.
+
+            '
+          content:
+            audio/x-mpegurl:
+              example: '#EXTM3U
+
+                http://stream.example.com/live
+
+                '
+      tags:
+      - Tune.ashx

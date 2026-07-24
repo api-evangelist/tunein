@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime) Browse.ashx API
+  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
+
+    '
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+- url: https://opml.radiotime.com
+  description: TuneIn OPML / RadioTime public endpoint
+tags:
+- name: Browse.ashx
+paths:
+  /browse.ashx:
+    get:
+      operationId: browseDirectory
+      summary: Browse the TuneIn directory
+      description: 'Browse TuneIn''s directory of radio stations, podcasts, sports, news, and music by category. Returns an OPML (XML) or JSON listing of categories or stations depending on the parameters supplied.
+
+        '
+      parameters:
+      - name: c
+        in: query
+        description: 'Browse category. Valid values: local, music, talk, sports, lang, podcast. The "local" category returns streaming results directly; the others return further menu options.
+
+          '
+        required: false
+        schema:
+          type: string
+          enum:
+          - local
+          - music
+          - talk
+          - sports
+          - lang
+          - podcast
+      - name: id
+        in: query
+        description: 'Identifier of a country or continent for location-scoped browsing (e.g. r0, r101217). Used with categories that support geographic filtering.
+
+          '
+        required: false
+        schema:
+          type: string
+          example: r101217
+      - name: filter
+        in: query
+        description: 'Language category filter. Format is "letter:text", e.g. "s:popular" or "p:show". Used by the lang category to narrow results.
+
+          '
+        required: false
+        schema:
+          type: string
+          example: s:popular
+      - name: render
+        in: query
+        description: 'Response format override. Set to "json" to receive JSON instead of the default XML/OPML response.
+
+          '
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+      responses:
+        '200':
+          description: 'OPML (XML) or JSON listing of categories or stations. When no category is specified the root directory is returned. Station outlines include type, text, URL, bitrate, reliability, guide_id, subtext, genre_id, formats, show_id, image, current_track, now_playing_id, and preset_id attributes.
+
+            '
+          content:
+            application/xml:
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<opml version=\"1\">\n  <head>\n    <title>Browse</title>\n    <status>200</status>\n  </head>\n  <body>\n    <outline type=\"link\" text=\"Local Radio\" URL=\"https://opml.radiotime.com/browse.ashx?c=local\" key=\"local\"/>\n    <outline type=\"link\" text=\"Music\" URL=\"https://opml.radiotime.com/browse.ashx?c=music\" key=\"music\"/>\n    <outline type=\"link\" text=\"Talk\" URL=\"https://opml.radiotime.com/browse.ashx?c=talk\" key=\"talk\"/>\n    <outline type=\"link\" text=\"Sports\" URL=\"https://opml.radiotime.com/browse.ashx?c=sports\" key=\"sports\"/>\n    <outline type=\"link\" text=\"By Language\" URL=\"https://opml.radiotime.com/browse.ashx?c=lang\" key=\"lang\"/>\n    <outline type=\"link\" text=\"Podcasts\" URL=\"https://opml.radiotime.com/browse.ashx?c=podcast\" key=\"podcast\"/>\n  </body>\n</opml>\n"
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseResponse'
+      tags:
+      - Browse.ashx
+components:
+  schemas:
+    BrowseResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Browse
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/BrowseOutline'
+    BrowseOutline:
+      type: object
+      description: A single item in an OPML browse response (JSON rendering)
+      properties:
+        type:
+          type: string
+          description: Outline type (e.g. "link", "audio", "text")
+        text:
+          type: string
+          description: Display name of the category or station
+        URL:
+          type: string
+          format: uri
+          description: URL to browse further or tune to the station
+        key:
+          type: string
+          description: Category identifier key
+        guide_id:
+          type: string
+          description: Unique TuneIn station or show identifier
+        preset_id:
+          type: string
+          description: Preset identifier
+        bitrate:
+          type: integer
+          description: Stream bitrate in kbps
+        reliability:
+          type: integer
+          description: Stream reliability percentage (0-100)
+        genre_id:
+          type: string
+          description: Genre classification code
+        formats:
+          type: string
+          description: Audio format (e.g. "mp3", "aac")
+        show_id:
+          type: string
+          description: Show identifier
+        image:
+          type: string
+          format: uri
+          description: Station or show image URL
+        current_track:
+          type: string
+          description: Currently playing track title
+        now_playing_id:
+          type: string
+          description: Now-playing metadata identifier
+        subtext:
+          type: string
+          description: Secondary display text

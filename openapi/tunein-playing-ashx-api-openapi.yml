@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: TuneIn Streaming API (OPML/RadioTime) Playing.ashx API
+  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
+
+    '
+  version: 1.0.0
+  contact:
+    name: TuneIn Support
+    url: https://help.tunein.com/
+  x-unofficial-docs: https://tunein-api.corehacked.com/
+servers:
+- url: https://opml.radiotime.com
+  description: TuneIn OPML / RadioTime public endpoint
+tags:
+- name: Playing.ashx
+paths:
+  /Playing.ashx:
+    get:
+      operationId: submitNowPlaying
+      summary: Submit now-playing metadata for a station
+      description: 'Submits real-time now-playing metadata (current song, artist, album, commercial flag) for a licensed broadcast station to TuneIn. Partners must include their partnerId and partnerKey credentials. Requests should be sent once per song start — duplicate or timer-based submissions within short timeframes may be blocked. Information may take up to 24 hours to appear on TuneIn.com.
+
+        '
+      parameters:
+      - name: partnerId
+        in: query
+        description: 'Unique partner identifier issued by TuneIn upon broadcaster registration.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: myPartnerId
+      - name: partnerKey
+        in: query
+        description: 'Partner authentication key issued by TuneIn alongside the partnerId.
+
+          '
+        required: true
+        schema:
+          type: string
+          example: myPartnerKey
+      - name: id
+        in: query
+        description: 'Station identifier assigned by TuneIn. Must be prefixed with "s" (e.g. s12345).
+
+          '
+        required: true
+        schema:
+          type: string
+          pattern: ^s\d+
+          example: s12345
+      - name: title
+        in: query
+        description: Title of the currently playing song.
+        required: true
+        schema:
+          type: string
+          example: Bad Romance
+      - name: artist
+        in: query
+        description: Name of the artist performing the currently playing song.
+        required: true
+        schema:
+          type: string
+          example: Lady Gaga
+      - name: album
+        in: query
+        description: Album name for the currently playing song.
+        required: false
+        schema:
+          type: string
+          example: The Fame Monster
+      - name: commercial
+        in: query
+        description: 'Set to true during non-song periods (e.g. advertisements, station IDs). When true, title and artist are not required.
+
+          '
+        required: false
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: 'Now-playing metadata successfully received. Information may take up to 24 hours to display on TuneIn.com.
+
+            '
+          content:
+            text/plain:
+              example: ok
+        '400':
+          description: 'Invalid request — missing or malformed required parameters.
+
+            '
+        '403':
+          description: 'Authentication failure — invalid partnerId or partnerKey, or the station ID is not associated with the partner account.
+
+            '
+        '429':
+          description: 'Request blocked due to duplicate or timer-based submission. Send updates only once per song start.
+
+            '
+      tags:
+      - Playing.ashx
