@@ -1,0 +1,35 @@
+{
+  "provider": "tunein",
+  "sources": [
+    "openapi.yml",
+    "openapi-air.yml"
+  ],
+  "outputs": [
+    "tunein-browse-ashx-api-openapi.yml",
+    "tunein-describe-ashx-api-openapi.yml",
+    "tunein-search-ashx-api-openapi.yml",
+    "tunein-tune-ashx-api-openapi.yml",
+    "tunein-playing-ashx-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi.yml",
+    "archived openapi-air.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "discovered stray spec: openapi.yml",
+    "discovered stray spec: openapi-air.yml",
+    "openapi.yml: tagged GET /browse.ashx -> Browse.ashx",
+    "openapi.yml: tagged GET /search.ashx -> Search.ashx",
+    "openapi.yml: tagged GET /describe.ashx -> Describe.ashx",
+    "openapi.yml: tagged GET /tune.ashx -> Tune.ashx",
+    "openapi.yml: declared missing tag: Browse.ashx",
+    "openapi.yml: declared missing tag: Describe.ashx",
+    "openapi.yml: declared missing tag: Search.ashx",
+    "openapi.yml: declared missing tag: Tune.ashx",
+    "openapi-air.yml: tagged GET /Playing.ashx -> Playing.ashx",
+    "openapi-air.yml: declared missing tag: Playing.ashx"
+  ],
+  "skipped": []
+}
