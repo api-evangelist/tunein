@@ -1,0 +1,348 @@
+{
+  "item": [
+    {
+      "id": "ef4ce0f6-5897-4940-a6a5-22826d2bd790",
+      "name": "Playing.ashx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "111c0852-f39a-4f7a-bac7-dbcb88405e6b",
+          "name": "Submit now-playing metadata for a station",
+          "request": {
+            "name": "Submit now-playing metadata for a station",
+            "description": {
+              "content": "Submits real-time now-playing metadata (current song, artist, album, commercial flag) for a licensed broadcast station to TuneIn. Partners must include their partnerId and partnerKey credentials. Requests should be sent once per song start — duplicate or timer-based submissions within short timeframes may be blocked. Information may take up to 24 hours to appear on TuneIn.com.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Playing.ashx"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "partnerId",
+                  "value": "<string>",
+                  "description": "(Required) Unique partner identifier issued by TuneIn upon broadcaster registration.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "partnerKey",
+                  "value": "<string>",
+                  "description": "(Required) Partner authentication key issued by TuneIn alongside the partnerId.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Station identifier assigned by TuneIn. Must be prefixed with \"s\" (e.g. s12345).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "title",
+                  "value": "<string>",
+                  "description": "(Required) Title of the currently playing song."
+                },
+                {
+                  "disabled": false,
+                  "key": "artist",
+                  "value": "<string>",
+                  "description": "(Required) Name of the artist performing the currently playing song."
+                },
+                {
+                  "disabled": false,
+                  "key": "album",
+                  "value": "<string>",
+                  "description": "Album name for the currently playing song."
+                },
+                {
+                  "disabled": false,
+                  "key": "commercial",
+                  "value": "<boolean>",
+                  "description": "Set to true during non-song periods (e.g. advertisements, station IDs). When true, title and artist are not required.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "598ba4cc-b561-44e3-9e9c-97fd5709da9e",
+              "name": "Now-playing metadata successfully received. Information may take up to 24 hours to display on TuneIn.com.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Playing.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partnerId",
+                      "value": "myPartnerId"
+                    },
+                    {
+                      "key": "partnerKey",
+                      "value": "myPartnerKey"
+                    },
+                    {
+                      "key": "id",
+                      "value": "s12345"
+                    },
+                    {
+                      "key": "title",
+                      "value": "Bad Romance"
+                    },
+                    {
+                      "key": "artist",
+                      "value": "Lady Gaga"
+                    },
+                    {
+                      "key": "album",
+                      "value": "The Fame Monster"
+                    },
+                    {
+                      "key": "commercial",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "ok",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22fb0315-a504-437a-bbbb-bf0d4d8b5102",
+              "name": "Invalid request — missing or malformed required parameters.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Playing.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partnerId",
+                      "value": "myPartnerId"
+                    },
+                    {
+                      "key": "partnerKey",
+                      "value": "myPartnerKey"
+                    },
+                    {
+                      "key": "id",
+                      "value": "s12345"
+                    },
+                    {
+                      "key": "title",
+                      "value": "Bad Romance"
+                    },
+                    {
+                      "key": "artist",
+                      "value": "Lady Gaga"
+                    },
+                    {
+                      "key": "album",
+                      "value": "The Fame Monster"
+                    },
+                    {
+                      "key": "commercial",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c9c971d3-41bc-43f9-913a-60271e478398",
+              "name": "Authentication failure — invalid partnerId or partnerKey, or the station ID is not associated with the partner account.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Playing.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partnerId",
+                      "value": "myPartnerId"
+                    },
+                    {
+                      "key": "partnerKey",
+                      "value": "myPartnerKey"
+                    },
+                    {
+                      "key": "id",
+                      "value": "s12345"
+                    },
+                    {
+                      "key": "title",
+                      "value": "Bad Romance"
+                    },
+                    {
+                      "key": "artist",
+                      "value": "Lady Gaga"
+                    },
+                    {
+                      "key": "album",
+                      "value": "The Fame Monster"
+                    },
+                    {
+                      "key": "commercial",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8d83823-48cb-4942-85c2-d191e4902d47",
+              "name": "Request blocked due to duplicate or timer-based submission. Send updates only once per song start.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Playing.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partnerId",
+                      "value": "myPartnerId"
+                    },
+                    {
+                      "key": "partnerKey",
+                      "value": "myPartnerKey"
+                    },
+                    {
+                      "key": "id",
+                      "value": "s12345"
+                    },
+                    {
+                      "key": "title",
+                      "value": "Bad Romance"
+                    },
+                    {
+                      "key": "artist",
+                      "value": "Lady Gaga"
+                    },
+                    {
+                      "key": "album",
+                      "value": "The Fame Monster"
+                    },
+                    {
+                      "key": "commercial",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opml.radiotime.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b1a476fc-eb29-4e37-93e6-90f1ccc083ba",
+    "name": "TuneIn Streaming API (OPML/RadioTime) Playing.ashx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.\n\n\nContact Support:\n Name: TuneIn Support",
+      "type": "text/plain"
+    }
+  }
+}

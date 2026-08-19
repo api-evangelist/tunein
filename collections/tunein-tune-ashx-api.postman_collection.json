@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "e6a15a77-cd84-4683-9a99-623e03021ab3",
+      "name": "Tune.ashx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "553bf83f-1654-49f3-bfbe-6ad425c3d59f",
+          "name": "Get the streaming playlist file for a station or show",
+          "request": {
+            "name": "Get the streaming playlist file for a station or show",
+            "description": {
+              "content": "Returns a .m3u playlist file that can be used to stream the specified station or show. The id parameter is obtained from the outline URL or guide_id attributes returned by browse, search, or describe. The response is a direct file download.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tune.ashx"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Tune identifier obtained from outline objects (e.g. s12345 for a station). Use the id value embedded in the outline URL attribute from browse or search results.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "Show or topic identifier (e.g. p1234567). Used alongside the id parameter for shows and topics. Purpose partially undocumented.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "audio/x-mpegurl"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f843ba9-4e6a-4b8b-9e01-7d9ce27cc246",
+              "name": "An M3U playlist file containing the streaming URL(s) for the requested station or show. Use a media player or streaming library to parse and play the returned stream URLs.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tune.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "s12345"
+                    },
+                    {
+                      "key": "sid",
+                      "value": "p1234567"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "audio/x-mpegurl"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/x-mpegurl"
+                }
+              ],
+              "body": "#EXTM3U\nhttp://stream.example.com/live\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opml.radiotime.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a16e2f1-e3bd-4d27-8ac9-e09616c9ee71",
+    "name": "TuneIn Streaming API (OPML/RadioTime) Tune.ashx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.\n\n\nContact Support:\n Name: TuneIn Support",
+      "type": "text/plain"
+    }
+  }
+}

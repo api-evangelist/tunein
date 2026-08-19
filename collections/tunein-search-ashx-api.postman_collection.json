@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "fb3f2e7b-c29a-4ed0-93f2-caa8b14e8940",
+      "name": "Search.ashx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e91e91c-33ae-4f0f-bf5d-e40c3ffc23fa",
+          "name": "Search for stations, shows, and podcasts",
+          "request": {
+            "name": "Search for stations, shows, and podcasts",
+            "description": {
+              "content": "Search the TuneIn directory for radio stations, shows, topics, and podcasts. Returns an OPML (XML) or JSON list of matching results. The query parameter must be URL-encoded. Returns a \"No results\" outline element when no matches are found.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search.ashx"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search term. Must be URL-encoded (e.g. \"GitFM\" becomes \"GitFM\", multi-word queries should encode spaces as \"+\").\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "render",
+                  "value": "<string>",
+                  "description": "Response format override. Set to \"json\" to receive JSON instead of the default XML/OPML response.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c705634a-b2f1-400a-b722-9f656d2563f8",
+              "name": "OPML (XML) or JSON list of matching stations/shows. Each result outline may include: type, text, URL, guide_id, image, bitrate, reliability, genre_id, formats, playing, item attributes. When no results are found, returns an outline of type \"text\" with a \"No results for [query]\" message.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "BBC Radio 4"
+                    },
+                    {
+                      "key": "render",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"head\": {\n    \"title\": \"Search\",\n    \"status\": 200\n  },\n  \"body\": {\n    \"outline\": [\n      {\n        \"type\": \"string\",\n        \"text\": \"string\",\n        \"URL\": \"http://bhg.xkpkeiFpYU5B4JEzVlLr,aBxxywPkHq-RKzGx.,\",\n        \"guide_id\": \"string\",\n        \"image\": \"https://eRuWBAxbFuZXNUzVGyeLynKERSnasN.sbGalz5QLDHrUrFa0q.BR+iqAKOtsND82NagPHSSd-bajdKRKPCHga4ot\",\n        \"bitrate\": 9999,\n        \"reliability\": 4795,\n        \"genre_id\": \"string\",\n        \"formats\": \"string\",\n        \"playing\": \"string\",\n        \"item\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"text\": \"string\",\n        \"URL\": \"https://CYI.bsjell4P8WD-97S9Q73H740oWls9Lun3RjiLsqWbZqhRvwuC7EqEQ5e\",\n        \"guide_id\": \"string\",\n        \"image\": \"https://wtLooAuJgwWjxE.ljjkJQ6V7tUR,G.HR0beQN2nE.YXuEmfIoJfELJQfoVzTlDX.6bssO7ZpxgH-gPMMjPPRDd4d\",\n        \"bitrate\": 6871,\n        \"reliability\": 6000,\n        \"genre_id\": \"string\",\n        \"formats\": \"string\",\n        \"playing\": \"string\",\n        \"item\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opml.radiotime.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f7626d8e-0543-4b3e-a61f-782b37b1f4df",
+    "name": "TuneIn Streaming API (OPML/RadioTime) Search.ashx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.\n\n\nContact Support:\n Name: TuneIn Support",
+      "type": "text/plain"
+    }
+  }
+}

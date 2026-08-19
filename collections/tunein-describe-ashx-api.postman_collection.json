@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "4bd729a3-b568-4731-8a1d-aae3f32553d2",
+      "name": "Describe.ashx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed41fb68-31ff-4cbc-8b68-f26730b84f06",
+          "name": "Get detailed metadata for a station or show",
+          "request": {
+            "name": "Get detailed metadata for a station or show",
+            "description": {
+              "content": "Returns detailed metadata about a specific TuneIn station, show, topic, or podcast identified by its guide_id. The response includes over 60 fields covering broadcast details, geographic data, content classifications, monetization flags, and social sharing capabilities.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "describe.ashx"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Station or show identifier as returned in guide_id or preset_id outline attributes (e.g. s42069).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "render",
+                  "value": "<string>",
+                  "description": "Response format override. Set to \"json\" to receive JSON instead of the default XML/OPML response.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f8ab4e5-ae5d-447e-8336-0b0e9cd65823",
+              "name": "Detailed station or show metadata wrapped in an OPML structure.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "describe.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "s42069"
+                    },
+                    {
+                      "key": "render",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"head\": {\n    \"title\": \"Describe\",\n    \"status\": 200\n  },\n  \"body\": {\n    \"outline\": {\n      \"guide_id\": \"string\",\n      \"preset_id\": \"string\",\n      \"name\": \"string\",\n      \"call_sign\": \"string\",\n      \"slogan\": \"string\",\n      \"frequency\": \"string\",\n      \"band\": \"string\",\n      \"url\": \"https://IZcLZAFUjjqyFZAHsRchYTmORqARdzKhF.yfeSsuRAVcXXgSqFHxJXY2VkN8tOd3nU5tdCs.NEoVNdsmh9WVyVZ\",\n      \"detail_url\": \"https://ilYjBVntkzwAlcR.ovhfyiXKf.C6xmYTFs4j3AkAAlMFIi,X\",\n      \"tunein_url\": \"https://VDuD.jzDFxkQtd+gCcX7tzu8.pfotrjoBMN\",\n      \"logo\": \"https://prfxtvQK.ezsjLd+1V.Iv2trSL-JmCKOj4BL8WFdhQCmAYA\",\n      \"location\": \"string\",\n      \"description\": \"string\",\n      \"genre_id\": \"string\",\n      \"genre_name\": \"string\",\n      \"language\": \"string\",\n      \"country_region_id\": \"string\",\n      \"tz\": \"string\",\n      \"tz_offset\": 1757,\n      \"is_available\": true,\n      \"is_music\": true,\n      \"has_song\": true,\n      \"has_schedule\": true,\n      \"ad_eligible\": false,\n      \"preroll_ad_eligible\": false,\n      \"companion_ad_eligible\": false,\n      \"video_preroll_ad_eligible\": false,\n      \"fb_share\": true,\n      \"twitter_share\": true,\n      \"song_share\": false,\n      \"content_classification\": \"string\",\n      \"is_family_content\": false,\n      \"is_mature_content\": true,\n      \"can_cast\": false,\n      \"nielsen_eligible\": false,\n      \"live_seek_stream\": false,\n      \"seek_disabled\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opml.radiotime.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "62eedc7d-caca-46be-bc4d-f26ec7853716",
+    "name": "TuneIn Streaming API (OPML/RadioTime) Describe.ashx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.\n\n\nContact Support:\n Name: TuneIn Support",
+      "type": "text/plain"
+    }
+  }
+}

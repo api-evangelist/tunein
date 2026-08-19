@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TuneIn Streaming API (OPML/RadioTime) Search.ashx API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search.ashx",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for stations, shows, and podcasts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opml.radiotime.com/search.ashx",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search term. Must be URL-encoded (e.g. \"GitFM\" becomes \"GitFM\", multi-word queries should encode spaces as \"+\").\n"
+              },
+              {
+                "name": "render",
+                "value": "",
+                "type": "query",
+                "description": "Response format override. Set to \"json\" to receive JSON instead of the default XML/OPML response.\n"
+              }
+            ]
+          },
+          "docs": "Search the TuneIn directory for radio stations, shows, topics, and podcasts. Returns an OPML (XML) or JSON list of matching results. The query parameter must be URL-encoded. Returns a \"No results\" outline element when no matches are found.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

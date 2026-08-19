@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TuneIn Streaming API (OPML/RadioTime) Browse.ashx API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Browse.ashx",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Browse the TuneIn directory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opml.radiotime.com/browse.ashx",
+            "params": [
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "Browse category. Valid values: local, music, talk, sports, lang, podcast. The \"local\" category returns streaming results directly; the others return further menu options.\n"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of a country or continent for location-scoped browsing (e.g. r0, r101217). Used with categories that support geographic filtering.\n"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Language category filter. Format is \"letter:text\", e.g. \"s:popular\" or \"p:show\". Used by the lang category to narrow results.\n"
+              },
+              {
+                "name": "render",
+                "value": "",
+                "type": "query",
+                "description": "Response format override. Set to \"json\" to receive JSON instead of the default XML/OPML response.\n"
+              }
+            ]
+          },
+          "docs": "Browse TuneIn's directory of radio stations, podcasts, sports, news, and music by category. Returns an OPML (XML) or JSON listing of categories or stations depending on the parameters supplied.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

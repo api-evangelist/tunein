@@ -1,0 +1,144 @@
+{
+  "item": [
+    {
+      "id": "41641daf-f1c4-46b8-adb5-ead609c463c7",
+      "name": "Browse.ashx",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2706e20a-0143-4c41-b574-72d1b54708da",
+          "name": "Browse the TuneIn directory",
+          "request": {
+            "name": "Browse the TuneIn directory",
+            "description": {
+              "content": "Browse TuneIn's directory of radio stations, podcasts, sports, news, and music by category. Returns an OPML (XML) or JSON listing of categories or stations depending on the parameters supplied.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "browse.ashx"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "Browse category. Valid values: local, music, talk, sports, lang, podcast. The \"local\" category returns streaming results directly; the others return further menu options.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Identifier of a country or continent for location-scoped browsing (e.g. r0, r101217). Used with categories that support geographic filtering.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Language category filter. Format is \"letter:text\", e.g. \"s:popular\" or \"p:show\". Used by the lang category to narrow results.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "render",
+                  "value": "<string>",
+                  "description": "Response format override. Set to \"json\" to receive JSON instead of the default XML/OPML response.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73c32608-9664-41e1-8d4f-1f4eb330ab00",
+              "name": "OPML (XML) or JSON listing of categories or stations. When no category is specified the root directory is returned. Station outlines include type, text, URL, bitrate, reliability, guide_id, subtext, genre_id, formats, show_id, image, current_track, now_playing_id, and preset_id attributes.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "browse.ashx"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "r101217"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "s:popular"
+                    },
+                    {
+                      "key": "render",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"head\": {\n    \"title\": \"Browse\",\n    \"status\": 200\n  },\n  \"body\": {\n    \"outline\": [\n      {\n        \"type\": \"string\",\n        \"text\": \"string\",\n        \"URL\": \"http://wUXPnxmcITkwp.cxplNR7yRXgCUCLL1CGTlaM2BV95r\",\n        \"key\": \"string\",\n        \"guide_id\": \"string\",\n        \"preset_id\": \"string\",\n        \"bitrate\": 3499,\n        \"reliability\": 5988,\n        \"genre_id\": \"string\",\n        \"formats\": \"string\",\n        \"show_id\": \"string\",\n        \"image\": \"http://ZpVpEKZQb.knsCR.7nWlYqc6P7kZaiCCAWIUjCJ0jRn87u8tVnB7B\",\n        \"current_track\": \"string\",\n        \"now_playing_id\": \"string\",\n        \"subtext\": \"string\"\n      },\n      {\n        \"type\": \"string\",\n        \"text\": \"string\",\n        \"URL\": \"http://KCIeWGtiXTcBsqNUtOfhXLEGbTrY.kjawrH9\",\n        \"key\": \"string\",\n        \"guide_id\": \"string\",\n        \"preset_id\": \"string\",\n        \"bitrate\": 6119,\n        \"reliability\": 4089,\n        \"genre_id\": \"string\",\n        \"formats\": \"string\",\n        \"show_id\": \"string\",\n        \"image\": \"https://hAihObgjSjRSSvgZTrDeQuUqQonDR.nthtpVvJ.0Q7Nf4yrO7YDJGA-hMjV7EvVMJZ.WZ3r3BvNjKqvkbmTebD71XLBBhCfxmKBWpoErAE\",\n        \"current_track\": \"string\",\n        \"now_playing_id\": \"string\",\n        \"subtext\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://opml.radiotime.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "53f36e5c-2feb-4e85-beb4-eb4b7e91c51f",
+    "name": "TuneIn Streaming API (OPML/RadioTime) Browse.ashx API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.\n\n\nContact Support:\n Name: TuneIn Support",
+      "type": "text/plain"
+    }
+  }
+}

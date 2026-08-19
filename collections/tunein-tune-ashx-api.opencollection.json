@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TuneIn Streaming API (OPML/RadioTime) Tune.ashx API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tune.ashx",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the streaming playlist file for a station or show",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://opml.radiotime.com/tune.ashx",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Tune identifier obtained from outline objects (e.g. s12345 for a station). Use the id value embedded in the outline URL attribute from browse or search results.\n"
+              },
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Show or topic identifier (e.g. p1234567). Used alongside the id parameter for shows and topics. Purpose partially undocumented.\n"
+              }
+            ]
+          },
+          "docs": "Returns a .m3u playlist file that can be used to stream the specified station or show. The id parameter is obtained from the outline URL or guide_id attributes returned by browse, search, or describe. The response is a direct file download.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
