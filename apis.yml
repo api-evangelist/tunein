@@ -38,6 +38,14 @@ apis:
   tags:
   - Platform
   - Partner
+  - Authentication
+  - Smart Devices
+  - Embedded
+  - Recommendations
+  - Favorites
+  tags_raw:
+  - Platform
+  - Partner
   - OAuth
   - Smart Devices
   - Embedded
