@@ -1,35 +1,39 @@
 {
   "provider": "tunein",
   "sources": [
-    "openapi.yml",
-    "openapi-air.yml"
+    "_original/openapi-air.yml",
+    "_original/openapi.yml"
   ],
   "outputs": [
+    "tunein-playing-ashx-api-openapi.yml",
     "tunein-browse-ashx-api-openapi.yml",
     "tunein-describe-ashx-api-openapi.yml",
     "tunein-search-ashx-api-openapi.yml",
-    "tunein-tune-ashx-api-openapi.yml",
-    "tunein-playing-ashx-api-openapi.yml"
+    "tunein-tune-ashx-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi.yml",
-    "archived openapi-air.yml"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
-    "discovered stray spec: openapi.yml",
-    "discovered stray spec: openapi-air.yml",
-    "openapi.yml: tagged GET /browse.ashx -> Browse.ashx",
-    "openapi.yml: tagged GET /search.ashx -> Search.ashx",
-    "openapi.yml: tagged GET /describe.ashx -> Describe.ashx",
-    "openapi.yml: tagged GET /tune.ashx -> Tune.ashx",
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi-air.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "openapi-air.yml: tagged paths GET /Playing.ashx -> Playing.ashx",
+    "openapi-air.yml: declared missing tag: Playing.ashx",
+    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "openapi.yml: tagged paths GET /browse.ashx -> Browse.ashx",
+    "openapi.yml: tagged paths GET /search.ashx -> Search.ashx",
+    "openapi.yml: tagged paths GET /describe.ashx -> Describe.ashx",
+    "openapi.yml: tagged paths GET /tune.ashx -> Tune.ashx",
     "openapi.yml: declared missing tag: Browse.ashx",
     "openapi.yml: declared missing tag: Describe.ashx",
     "openapi.yml: declared missing tag: Search.ashx",
-    "openapi.yml: declared missing tag: Tune.ashx",
-    "openapi-air.yml: tagged GET /Playing.ashx -> Playing.ashx",
-    "openapi-air.yml: declared missing tag: Playing.ashx"
+    "openapi.yml: declared missing tag: Tune.ashx"
   ],
-  "skipped": []
+  "skipped": [
+    "tunein-browse-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tunein-describe-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tunein-playing-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tunein-search-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tunein-tune-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
