@@ -1,5 +1,17 @@
 name: TuneIn
 description: TuneIn is an internet radio and podcast platform providing REST and OPML-based APIs for accessing live radio stations, sports audio, news, podcasts, and searching audio content worldwide. The platform offers two primary API surfaces — the public OPML/RadioTime streaming API for browsing and tuning stations, and the AIR (Broadcaster) API for submitting real-time now-playing metadata.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
