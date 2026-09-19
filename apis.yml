@@ -49,7 +49,7 @@ apis:
   baseURL: https://developer.tunein.com
   tags:
   - Platform
-  - Partner
+  - Partners
   - Authentication
   - Smart Devices
   - Embedded
