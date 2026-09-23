@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: TuneIn AIR (Broadcaster) Playing.ashx API
-  description: 'The TuneIn AIR (Audio Information Reporting) API enables licensed broadcast partners to submit real-time now-playing metadata — including song title, artist, album, and commercial break flags — directly to TuneIn. Stations receive a partnerId and partnerKey upon contacting TuneIn to register. Submit updates once per song start; avoid timer-based or duplicate submissions or requests may be blocked. Updates may take up to 24 hours to appear on tunein.com.
-
-    '
+  description: The TuneIn AIR (Audio Information Reporting) API enables licensed broadcast partners to submit real-time now-playing metadata — including song title, artist, album, and commercial break flags — directly to TuneIn. Stations receive a partnerId and partnerKey upon contacting TuneIn to register. Submit updates once per song start; avoid timer-based or duplicate submissions or requests may be blocked. Updates may take up to 24 hours to appear on tunein.com.
   version: 1.0.0
   contact:
     name: TuneIn Broadcaster Support
@@ -20,9 +18,7 @@ paths:
     get:
       operationId: submitNowPlaying
       summary: Submit now-playing metadata for a station
-      description: 'Submits real-time now-playing metadata (current song, artist, album, commercial flag) for a licensed broadcast station to TuneIn. Partners must include their partnerId and partnerKey credentials. Requests should be sent once per song start — duplicate or timer-based submissions within short timeframes may be blocked. Information may take up to 24 hours to appear on TuneIn.com.
-
-        '
+      description: Submits real-time now-playing metadata (current song, artist, album, commercial flag) for a licensed broadcast station to TuneIn. Partners must include their partnerId and partnerKey credentials. Requests should be sent once per song start — duplicate or timer-based submissions within short timeframes may be blocked. Information may take up to 24 hours to appear on TuneIn.com.
       parameters:
       - name: partnerId
         in: query

@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: TuneIn Streaming API (OPML/RadioTime) Browse.ashx API
-  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
-
-    '
+  description: The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
   version: 1.0.0
   contact:
     name: TuneIn Support
@@ -19,9 +17,7 @@ paths:
     get:
       operationId: browseDirectory
       summary: Browse the TuneIn directory
-      description: 'Browse TuneIn''s directory of radio stations, podcasts, sports, news, and music by category. Returns an OPML (XML) or JSON listing of categories or stations depending on the parameters supplied.
-
-        '
+      description: Browse TuneIn's directory of radio stations, podcasts, sports, news, and music by category. Returns an OPML (XML) or JSON listing of categories or stations depending on the parameters supplied.
       parameters:
       - name: c
         in: query
@@ -81,6 +77,25 @@ paths:
       - Browse.ashx
 components:
   schemas:
+    BrowseResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Browse
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/BrowseOutline'
     BrowseOutline:
       type: object
       description: A single item in an OPML browse response (JSON rendering)
@@ -132,22 +147,3 @@ components:
         subtext:
           type: string
           description: Secondary display text
-    BrowseResponse:
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Browse
-            status:
-              type: integer
-              example: 200
-        body:
-          type: object
-          properties:
-            outline:
-              type: array
-              items:
-                $ref: '#/components/schemas/BrowseOutline'

@@ -27,7 +27,8 @@
     "openapi.yml: declared missing tag: Browse.ashx",
     "openapi.yml: declared missing tag: Describe.ashx",
     "openapi.yml: declared missing tag: Search.ashx",
-    "openapi.yml: declared missing tag: Tune.ashx"
+    "openapi.yml: declared missing tag: Tune.ashx",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "tunein-browse-ashx-api-openapi.yml: previously refined output, superseded by openapi/_original/",

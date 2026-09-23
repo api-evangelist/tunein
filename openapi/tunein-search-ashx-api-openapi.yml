@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: TuneIn Streaming API (OPML/RadioTime) Search.ashx API
-  description: 'The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn''s directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
-
-    '
+  description: The TuneIn Streaming API (backed by opml.radiotime.com) provides access to TuneIn's directory of internet radio stations, podcasts, sports audio, news, and music. Callers can browse categories, search for stations, describe specific stations or shows, and retrieve stream URLs for playback. Responses are available in OPML (XML) or JSON format. No authentication is required for the public streaming API.
   version: 1.0.0
   contact:
     name: TuneIn Support
@@ -19,9 +17,7 @@ paths:
     get:
       operationId: searchDirectory
       summary: Search for stations, shows, and podcasts
-      description: 'Search the TuneIn directory for radio stations, shows, topics, and podcasts. Returns an OPML (XML) or JSON list of matching results. The query parameter must be URL-encoded. Returns a "No results" outline element when no matches are found.
-
-        '
+      description: Search the TuneIn directory for radio stations, shows, topics, and podcasts. Returns an OPML (XML) or JSON list of matching results. The query parameter must be URL-encoded. Returns a "No results" outline element when no matches are found.
       parameters:
       - name: query
         in: query
@@ -57,25 +53,6 @@ paths:
       - Search.ashx
 components:
   schemas:
-    SearchResponse:
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Search
-            status:
-              type: integer
-              example: 200
-        body:
-          type: object
-          properties:
-            outline:
-              type: array
-              items:
-                $ref: '#/components/schemas/SearchOutline'
     SearchOutline:
       type: object
       description: A single search result item (JSON rendering)
@@ -115,3 +92,22 @@ components:
         item:
           type: string
           description: Item classification (e.g. "station", "show")
+    SearchResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Search
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchOutline'
