@@ -77,25 +77,6 @@ paths:
       - Browse.ashx
 components:
   schemas:
-    BrowseResponse:
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Browse
-            status:
-              type: integer
-              example: 200
-        body:
-          type: object
-          properties:
-            outline:
-              type: array
-              items:
-                $ref: '#/components/schemas/BrowseOutline'
     BrowseOutline:
       type: object
       description: A single item in an OPML browse response (JSON rendering)
@@ -147,3 +128,22 @@ components:
         subtext:
           type: string
           description: Secondary display text
+    BrowseResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Browse
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/BrowseOutline'

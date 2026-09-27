@@ -53,23 +53,6 @@ paths:
       - Describe.ashx
 components:
   schemas:
-    DescribeResponse:
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Describe
-            status:
-              type: integer
-              example: 200
-        body:
-          type: object
-          properties:
-            outline:
-              $ref: '#/components/schemas/StationDetails'
     StationDetails:
       type: object
       description: Detailed station or show metadata (JSON rendering of describe response)
@@ -189,3 +172,20 @@ components:
         seek_disabled:
           type: boolean
           description: Whether seeking is disabled
+    DescribeResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Describe
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              $ref: '#/components/schemas/StationDetails'

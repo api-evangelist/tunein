@@ -53,6 +53,25 @@ paths:
       - Search.ashx
 components:
   schemas:
+    SearchResponse:
+      type: object
+      properties:
+        head:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Search
+            status:
+              type: integer
+              example: 200
+        body:
+          type: object
+          properties:
+            outline:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchOutline'
     SearchOutline:
       type: object
       description: A single search result item (JSON rendering)
@@ -92,22 +111,3 @@ components:
         item:
           type: string
           description: Item classification (e.g. "station", "show")
-    SearchResponse:
-      type: object
-      properties:
-        head:
-          type: object
-          properties:
-            title:
-              type: string
-              example: Search
-            status:
-              type: integer
-              example: 200
-        body:
-          type: object
-          properties:
-            outline:
-              type: array
-              items:
-                $ref: '#/components/schemas/SearchOutline'
