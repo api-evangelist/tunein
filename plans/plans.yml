@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 plans:
   - name: Public OPML API (No Key)
     description: Free access to the TuneIn OPML/RadioTime streaming API without a partner ID. Allows browsing categories and searching stations but is subject to aggressive rate limiting (403 Forbidden after a daily threshold). No registration required.
