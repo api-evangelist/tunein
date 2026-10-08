@@ -79,3 +79,33 @@ plans:
         - Finalized software delivery
         - Approval notification
         - Customer release
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Public OPML API (No Key)
+    access: free
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Public OPML API (With Partner ID)
+    access: partner
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: AIR Broadcaster API
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Platform API (Partner / OEM)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
